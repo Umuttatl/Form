@@ -1,35 +1,52 @@
-ekle.onclick=function()
-{
-    if (isim.value != "" && soyisim.value != "" && sifre.value != "" && mail.value != "") 
-    {
-        let tisim=document.createElement("td");
-        let tsoyisim=document.createElement("td");
-        let tsifre=document.createElement("td");
-        let tmail=document.createElement("td");
+let tfname;
+let tsurname;
+let tpassword;
+let tmail;
+let tdelete;
+let deletebtn;
 
-        tisim.textContent=isim.value;
-        tsoyisim.textContent=soyisim.value;
-        tsifre.textContent=sifre.value;
+add.onclick=function()
+{
+    if (fname.value != "" && surname.value != "" && password.value != "" && mail.value != "") 
+    {
+        tfname=document.createElement("td");
+        tsurname=document.createElement("td");
+        tpassword=document.createElement("td");
+        tmail=document.createElement("td");
+        tdelete = document.createElement("td"); 
+        deletebtn =document.createElement("button");
+        
+        tfname.textContent=fname.value;
+        tsurname.textContent=surname.value;
+        tpassword.textContent=password.value;
         tmail.textContent=mail.value;
+        deletebtn.textContent="delete";
+        tdelete.appendChild(deletebtn);
 
         let tr=document.createElement("tr");
 
-        tr.appendChild(tisim);
-        tr.appendChild(tsoyisim);
-        tr.appendChild(tsifre);
+        tr.appendChild(tfname);
+        tr.appendChild(tsurname);
+        tr.appendChild(tpassword);
         tr.appendChild(tmail);
+        tr.appendChild(tdelete);
 
-        liste.appendChild(tr);
+        list.appendChild(tr);
 
-        isim.value="";
-        soyisim.value="";
-        sifre.value="";
+        fname.value="";
+        surname.value="";
+        password.value="";
         mail.value="";
+        
+    deletebtn.onclick=function(e){
+    list.removeChild(this.parentNode.parentNode);
+    }
     } 
     else
     {
-        alert("Tüm alanları doldurun !");
+        alert("Fill in all fields !");
         return false;
     }
-    
+       
 }
+
