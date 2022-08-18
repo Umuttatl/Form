@@ -1,68 +1,103 @@
-let tid
+let tid;
 let tfname;
 let tsurname;
 let tpassword;
 let tmail;
-let check;
-let checkbox;
-// let tdelete;
-// let deletebtn;
 
-add.onclick=function()
-{
-    if (id.value != "" && fname.value != "" && surname.value != "" && password.value != "" && mail.value != "") 
-    {
-        tid=document.createElement("td");
-        tfname=document.createElement("td");
-        tsurname=document.createElement("td");
-        tpassword=document.createElement("td");
-        tmail=document.createElement("td");
-        check=document.createElement("td"); 
-        checkbox=document.createElement("checkbox");
-        // tdelete = document.createElement("td"); 
-        // deletebtn =document.createElement("button");
-        
-        tid.textContent=id.value;
-        tfname.textContent=fname.value;
-        tsurname.textContent=surname.value;
-        tpassword.textContent=password.value;
-        tmail.textContent=mail.value;
-        //checkbox.textContent=id;
-        check.appendChild(checkbox);
-        // deletebtn.textContent="delete";
-        // tdelete.appendChild(deletebtn);
+let rowswillbedeleted = [];
+//let todos = [];
 
-        let tr=document.createElement("tr");
+add.onclick = function () {
+  if (checkInputs()) {
+    /*
+      todos.push(
+        {id:id.value,name:fname.value,surname:surname.value,password:password.value,mail:mail.value}
+      )
+      todos.sort(x=>x.id)
 
-        tr.appendChild(tid);
-        tr.appendChild(tfname);
-        tr.appendChild(tsurname);
-        tr.appendChild(tpassword);
-        tr.appendChild(tmail);
-        tr.appendChild(check);
-        // tr.appendChild(tdelete);
+      //Liste elemanı olarak eklenecek, 
+      //daha sonra sıralanıp (sort by id) 
+      //table child olarak eklenecek.
+      //Not: Her defada sıralanacak ve her eklemede döngü ile basılıp bundan önce tablo temizlenecek 
+    */
 
-        list.appendChild(tr);
+    tid = document.createElement("td");
+    tfname = document.createElement("td");
+    tsurname = document.createElement("td");
+    tpassword = document.createElement("td");
+    tmail = document.createElement("td");
 
-        id.value="";
-        fname.value="";
-        surname.value="";
-        password.value="";
-        mail.value="";
-        
-        // deletebtn.onclick=function(e){
-        // list.removeChild(this.parentNode.parentNode);
-        // }
-    } 
-    else
-    {
-        alert("Fill in all fields !");
-        return false;
-    }
+    tid.textContent = id.value;
+    tfname.textContent = fname.value;
+    tsurname.textContent = surname.value;
+    tpassword.textContent = password.value;
+    tmail.textContent = mail.value;
+
+    let tr = document.createElement("tr");
+    tr.id = id.value;
+
+    tr.appendChild(tid);
+    tr.appendChild(tfname);
+    tr.appendChild(tsurname);
+    tr.appendChild(tpassword);
+    tr.appendChild(tmail);
+    tr.appendChild(mycheckBoxItem(id.value));
+
+    list.appendChild(tr);
+
+    id.value = "";
+    fname.value = "";
+    surname.value = "";
+    password.value = "";
+    mail.value = "";
+  }
+};
+
+fdelete.onclick = function () {
+  if (rowswillbedeleted.length == 0) {
+    alert("Any row selected");
+  } else {
+    deleteAllSelectedRows();
+  }
+};
+
+function deleteAllSelectedRows() {
+  for (let i = 0; i < rowswillbedeleted.length; i++) {
+    document.getElementById(rowswillbedeleted[i]).remove();
+  }
+  rowswillbedeleted = [];
 }
-fdelete.onclick=function()
-{
-    // var e = document.getElementById("list");
-    // e.removeChild();
-    // list.removeChild();
+
+function mycheckBoxItem(number) {
+  let check = document.createElement("input");
+
+  check.type = "checkbox";
+
+  check.onchange = function () {
+    if (check.checked) {
+      rowswillbedeleted.push(number);
+    } else {
+      for (var i = 0; i < rowswillbedeleted.length; i++) {
+        if (rowswillbedeleted[i] === number) {
+          rowswillbedeleted.splice(i, 1);
+        }
+      }
+    }
+  };
+  return check;
+}
+
+function checkInputs() {
+  if (
+    id.value != "" &&
+    fname.value != "" &&
+    surname.value != "" &&
+    password.value != "" &&
+    mail.value != ""
+  ) {
+    return true;
+  } else {
+    alert("Fill in all fields !");
+    return false;
+  }
 }

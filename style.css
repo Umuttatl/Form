@@ -35,6 +35,24 @@ input[type="text"]
     border: 5px inset;
 }
 
+input[type="number"]
+{
+    padding: 10px;
+    margin: 10px auto;
+    display: block;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    background: #C0C0C0;
+    width: 300px; 
+    color: white;
+    font-style: italic;
+    font-family: 'Times New Roman', Times, serif;
+    position: relative;
+    left: -50%;
+    top: -140px;
+    border: 5px inset;
+}
+
 .controls 
 {
     width: 150px;
